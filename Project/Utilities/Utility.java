@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -25,8 +24,7 @@ public class Utility
             URLConnection con = url.openConnection();
             InputStream is = con.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            
-            String line;String read = null;String dolar;String euro;String gold;boolean Needed = false;double dollar,yuro,altın;
+            String line;String read = null;String dolar;String euro;String gold;boolean Needed;double dollar,yuro,altın;
 
 while ((line = br.readLine()) != null) 
 {
@@ -37,8 +35,6 @@ while ((line = br.readLine()) != null)
     {
         Needed = false;
     }
-    
-    // If the Code is needed Stored it in DivWanted
     if(Needed == true) 
     {
         read += line + "\n";
@@ -70,7 +66,8 @@ list.add(altın);
         } catch (Exception e) 
         {
             System.out.println(e);
-        }
+        } 
+        System.gc();
         return list;
     } 
 }
