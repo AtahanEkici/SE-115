@@ -18,7 +18,6 @@ public class Account extends Bank
         this.password = password;
         this.balance = balance;
     }
-
     
     public void setUserName(String user_name)
     {
@@ -46,13 +45,7 @@ public class Account extends Bank
     {
         return this.balance;
     }
-    
-    public static void loan()
-    {
-        
-    }
-    
-    
+
     @Override
     public String toString() 
     { 
