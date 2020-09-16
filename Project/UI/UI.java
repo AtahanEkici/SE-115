@@ -12,10 +12,11 @@ public final class UI extends JFrame implements ActionListener,MouseListener,Key
     {
         try
         {
+            Construct_Credential_Frame();
             Construct_Main_Frame();
             Construct_Exchange_Frame();
             refresher();
-            Construct_Credential_Frame();
+            balancer();
         }
         catch(Exception e)
         {
@@ -535,7 +536,7 @@ catch(NumberFormatException e)
                 {
                     balance -= current_witdraw;
                     JOptionPane.showMessageDialog(null, "Your Withdrawal has been processed", "Transaction Successfull",JOptionPane.INFORMATION_MESSAGE);
-                    balanceLabel.setText("Your Balance is: "+balance+"");
+                    balancer();
                 } 
             }catch(Exception e)
             {
@@ -571,7 +572,7 @@ catch(NumberFormatException e)
                 {
                     balance += current_deposit;
                     JOptionPane.showMessageDialog(null, "Your Depositment has been processed", "Transaction Successfull",JOptionPane.INFORMATION_MESSAGE);
-                    balanceLabel.setText("Your Balance is: "+balance+"");
+                    balancer();
                 } 
             }catch(Exception e)
             {
