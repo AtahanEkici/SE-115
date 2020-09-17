@@ -1,5 +1,7 @@
 package UI;
-import Bank.Account;import Bank.Bank;import static Utilities.Utility.readInfo;import java.awt.BorderLayout;import java.awt.Color;import java.awt.Desktop;import java.awt.FlowLayout;import java.awt.Font;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.awt.event.KeyEvent;import java.awt.event.KeyListener;import java.awt.event.MouseEvent;import java.awt.event.MouseListener;import java.awt.event.WindowAdapter;import java.awt.event.WindowEvent;import java.math.BigDecimal;import java.math.MathContext;import java.net.URI;import java.util.ArrayList;import javax.swing.BorderFactory;import javax.swing.ImageIcon;import javax.swing.JButton;import javax.swing.JComboBox;import javax.swing.JFrame;import javax.swing.JLabel;import javax.swing.JMenu;import javax.swing.JMenuBar;import javax.swing.JMenuItem;import javax.swing.JOptionPane;import javax.swing.JPanel;import javax.swing.JPasswordField;import javax.swing.JTextField;import javax.swing.Timer;import javax.swing.event.DocumentEvent;import javax.swing.event.DocumentListener;
+import Bank.Account;import Bank.Bank;import static Utilities.Utility.readInfo;import java.awt.BorderLayout;import java.awt.Color;import java.awt.Desktop;import java.awt.FlowLayout;import java.awt.Font;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;import java.awt.event.KeyEvent;import java.awt.event.KeyListener;import java.awt.event.MouseEvent;import java.awt.event.MouseListener;import java.awt.event.WindowAdapter;import java.awt.event.WindowEvent;import java.math.BigDecimal;import java.math.MathContext;import java.net.URI;import java.util.ArrayList;import java.util.Currency;
+import java.util.Locale;import java.util.HashMap;import java.util.Map;
+import javax.swing.BorderFactory;import javax.swing.ImageIcon;import javax.swing.JButton;import javax.swing.JComboBox;import javax.swing.JFrame;import javax.swing.JLabel;import javax.swing.JMenu;import javax.swing.JMenuBar;import javax.swing.JMenuItem;import javax.swing.JOptionPane;import javax.swing.JPanel;import javax.swing.JPasswordField;import javax.swing.JTextField;import javax.swing.Timer;import javax.swing.event.DocumentEvent;import javax.swing.event.DocumentListener;
 /**
  *
  * @author Atahan Ekici
@@ -47,6 +49,12 @@ public final class UI extends JFrame implements ActionListener,MouseListener,Key
     private static final Account a1 = new Account(bank, "Account1", "admin", "admin", 1000.0);
     // Bank and Account //
     
+    // Currency Symbols //
+    private final String dollarSymbol = "$";
+    private final String euroSymbol = "€";
+    private final String turkishLiraSymbol = "TRY";
+    // Currency Symbols //
+    
     private double balance = a1.getBalance();
     private double Euro_balance = 0.0;
     private double Dollar_balance = 0.0;
@@ -67,7 +75,25 @@ public final class UI extends JFrame implements ActionListener,MouseListener,Key
         Euro_balance = round(Euro_balance);
         Dollar_balance = round(Dollar_balance);
         balance = round(balance);
-        balanceLabel.setText("Your Balance is: | Euro: "+Euro_balance+" | Dollar: "+Dollar_balance+" | TL: "+balance+"");
+        balanceLabel.setText("Your Balance is: | Euro: "+Euro_balance+" "+euroSymbol+" | Dollar: "+Dollar_balance+" "+dollarSymbol+" | TL: "+balance+" "+turkishLiraSymbol+"");
+    }
+    
+    public static Map<Currency, Locale> getCurrencyLocaleMap() 
+    {
+       Map<Currency, Locale> map = new HashMap<>();
+        for (Locale locale : Locale.getAvailableLocales()) 
+        {
+           try 
+           {
+             Currency currency = Currency.getInstance(locale);
+             map.put(currency, locale);
+           }
+           catch (Exception e)
+           { 
+            JOptionPane.showMessageDialog(null, e.getCause(), e.getClass().getCanonicalName(),JOptionPane.ERROR_MESSAGE);
+           }
+        }
+        return map;
     }
     
 private void update()
